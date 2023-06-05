@@ -101,7 +101,7 @@ paths:
       tags:
         - eRoamingAuthorization
       parameters:
-        - $ref: '#/components/parameters/OperatorID'
+        - $ref: '#/components/parameters/operatorID'
       requestBody:
         required: true
         content:
@@ -134,7 +134,7 @@ paths:
       tags:
         - eRoamingAuthorization
       parameters:
-        - $ref: '#/components/parameters/OperatorID'
+        - $ref: '#/components/parameters/operatorID'
       requestBody:
         required: true
         content:
@@ -258,7 +258,7 @@ paths:
       tags:
         - eRoamingAuthorization
       parameters:
-        - $ref: '#/components/parameters/OperatorID'
+        - $ref: '#/components/parameters/operatorID'
       requestBody:
         required: true
         content:
@@ -376,7 +376,7 @@ paths:
       tags:
         - eRoamingEvseData
       parameters:
-        - $ref: '#/components/parameters/OperatorID'
+        - $ref: '#/components/parameters/operatorID'
       requestBody:
         required: true
         content:
@@ -415,7 +415,7 @@ paths:
       tags:
         - eRoamingEvseStatus
       parameters:
-        - $ref: '#/components/parameters/OperatorID'
+        - $ref: '#/components/parameters/operatorID'
       requestBody:
         required: true
         content:
@@ -444,7 +444,7 @@ paths:
       tags:
         - eRoamingDynamicPricing
       parameters:
-        - $ref: '#/components/parameters/OperatorID'
+        - $ref: '#/components/parameters/operatorID'
       requestBody:
         required: true
         content:
@@ -480,7 +480,7 @@ paths:
       tags:
         - eRoamingDynamicPricing
       parameters:
-        - $ref: '#/components/parameters/OperatorID'
+        - $ref: '#/components/parameters/operatorID'
       requestBody:
         required: true
         content:
@@ -545,7 +545,7 @@ components:
       description: external id
       schema:
         type: string
-    OperatorID:
+    operatorID:
       name: operatorID
       in: path
       required: true
