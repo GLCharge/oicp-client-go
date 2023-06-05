@@ -1,7 +1,6 @@
 ## OICP 2.3.0
 
-This client is generated from OpenAPI specification that was created based on
-[OCPI 2.2.1 documentation](https://evroaming.org/app/uploads/2021/11/OCPI-2.2.1.pdf)
+This client is generated from [Hubject OICP 2.3.0 OpenAPI specification](https://hubject.github.io/oicp-cpo-2.3-api-doc/)
 
 Specification can be found in subfolder `api/2.3.0.spec.yml`
 

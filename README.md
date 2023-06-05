@@ -6,7 +6,7 @@ This repository contains client libraries for Open intercharge Protocol modules.
 
 Every version has OpenAPI specification that is used to generate the client using `opai-codegen` generator.
 OpenApi specifications contain also documentation. For more detailed documentation about the modules and APIs please follow
-the official [OCPI documentation](https://hubject.github.io/oicp-cpo-2.3-api-doc/)
+the official [OICP documentation](https://hubject.github.io/oicp-cpo-2.3-api-doc/)
 
 ## Installation
 
