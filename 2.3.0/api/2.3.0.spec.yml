@@ -1701,47 +1701,7 @@ components:
             - delete
           description: Describes the action that has to be performed by Hubject with the provided data.
         OperatorEvseStatus:
-          type: object
-          required:
-            - OperatorID
-            - EvseStatusRecord
-          description: Indicates the Eves status
-          properties:
-            OperatorID:
-              $ref: '#/components/schemas/OperatorIDType'
-            OperatorName:
-              type: string
-              description: Free text for operator
-              maximum: 100
-            EvseStatusRecord:
-              type: array
-              description: EvseStatus list
-              items:
-                type: object
-                required:
-                  - EvseID
-                  - EvseStatus
-                properties:
-                  EvseID:
-                    $ref: '#/components/schemas/EvseID'
-                  EvseStatus:
-                    type: string
-                    enum:
-                      - Available
-                      - Reserved
-                      - Occupied
-                      - OutOfService
-                      - EvseNotFound
-                      - Unknown
-                    description: |
-                      | Option | Description |                
-                      | ------ | ----------- |
-                      | Available | Charging Spot is available for charging. |
-                      | Reserved | Charging Spot is reserved and not available for charging. |
-                      | Occupied | Charging Spot is busy. |
-                      | OutOfService | Charging Spot is out of service and not available for charging. |
-                      | EvseNotFound | The requested EvseID and EVSE status does not exist within the Hubject database. |
-                      | Unknown | No status information available. |
+          $ref: '#/components/schemas/OperatorEvseStatus'
       example:
         ActionType: fullLoad
         OperatorEvseStatus:
@@ -2384,6 +2344,50 @@ components:
               PricePerAdditionalReferenceUnit:
                 type: number
                 description: A price in the given currency
+    OperatorEvseStatus:
+      type: object
+      required:
+        - OperatorID
+        - EvseStatusRecord
+      description: Indicates the Eves status
+      properties:
+        OperatorID:
+          $ref: '#/components/schemas/OperatorIDType'
+        OperatorName:
+          type: string
+          description: Free text for operator
+          maximum: 100
+        EvseStatusRecord:
+          $ref: '#/components/schemas/EvseStatusRecord'
+    EvseStatusRecord:
+      type: array
+      description: EvseStatus list
+      items:
+        type: object
+        required:
+          - EvseID
+          - EvseStatus
+        properties:
+          EvseID:
+            $ref: '#/components/schemas/EvseID'
+          EvseStatus:
+            type: string
+            enum:
+              - Available
+              - Reserved
+              - Occupied
+              - OutOfService
+              - EvseNotFound
+              - Unknown
+            description: |
+              | Option | Description |                
+              | ------ | ----------- |
+              | Available | Charging Spot is available for charging. |
+              | Reserved | Charging Spot is reserved and not available for charging. |
+              | Occupied | Charging Spot is busy. |
+              | OutOfService | Charging Spot is out of service and not available for charging. |
+              | EvseNotFound | The requested EvseID and EVSE status does not exist within the Hubject database. |
+              | Unknown | No status information available. |
     EvseDataRecord:
       type: object
       required:
