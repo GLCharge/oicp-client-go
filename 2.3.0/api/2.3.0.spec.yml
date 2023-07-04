@@ -524,7 +524,7 @@ paths:
         content:
           application/json:
             schema:
-              oneOf:
+              allOf:
                 - $ref: '#/components/schemas/eRoamingChargingNotificationStart'
                 - $ref: '#/components/schemas/eRoamingChargingNotificationProgress'
                 - $ref: '#/components/schemas/eRoamingChargingNotificationEnd'
@@ -1210,12 +1210,6 @@ components:
         The CPO’s backend system MAY send a ChargingNotification of type “End” after the CPO considers the charging of an EV concluded (because no energy is transmitted anymore) in order to inform the EMP that the actual charging (the energy flow) of the vehicle has stopped. The charging process has not yet been stopped by the customer and the session is still active.
 
         The ChargingNotification of type “End” is a message that contains information about the charging end of a session (e.g. ConsumedEnergy, ChargingEnd).
-      required:
-        - Type
-        - SessionID
-        - EvseID
-        - ChargingEnd
-        - OperatorID
       properties:
         Type:
           $ref: '#/components/schemas/ChargingNotificationType'
@@ -1310,12 +1304,6 @@ components:
         The CPO’s backend system MAY send a ChargingNotification of type “Error” after the CPO gets an information about the error at the charging station. The CPO can transmit one of the ErrorClass defined by Hubject along with the additional information which elaborated the Error. The customer has to take one of the three action EV needs to be charged at some different station, Cables is properly attached or the error is for information only no action required by customer.
 
         The ChargingNotification of type “Error” is a message that contains information about the charging end of a session (e.g. ErrorClass, ErrorAdditionalInfo).
-      required:
-        - Type
-        - SessionID
-        - EvseID
-        - ErrorType
-        - OperatorID
       properties:
         Type:
           $ref: '#/components/schemas/ChargingNotificationType'
@@ -1375,13 +1363,6 @@ components:
         The CPO’s backend system MAY send a ChargingNotification of type “Progess” after the CPO gets the charging energy or time information from EVSEID. This is required in order to inform the EMP that the progress energy or chargingduration for a perticular charging session.
 
         The ChargingNotification of type “Progress” is a message that contains information about the charging Duration or energy consumed during charging process (e.g. EventOccurred, ChargingDuration, ConsumedEnergyProgress).
-      required:
-        - Type
-        - SessionID
-        - EvseID
-        - ChargingStart
-        - EventOccurred
-        - OperatorID
       properties:
         Type:
           $ref: '#/components/schemas/ChargingNotificationType'
@@ -1472,12 +1453,6 @@ components:
         The CPO’s backend system MAY send a ChargingNotification of type “Start” after the CPO considers the charging of an EV is started (since energy flow have started) in order to inform the EMP that the actual charging (the energy flow) of the vehicle has started.
 
         The ChargingNotification of type “Start” is a message that contains information about the charging start of a session (e.g. ChargingStart).
-      required:
-        - Type
-        - SessionID
-        - EvseID
-        - ChargingStart
-        - OperatorID
       properties:
         Type:
           $ref: '#/components/schemas/ChargingNotificationType'
