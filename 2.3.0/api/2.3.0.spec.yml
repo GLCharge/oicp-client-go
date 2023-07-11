@@ -1757,6 +1757,147 @@ components:
 
         Examples DIN: “DE*8EO*Aet5e4*3”, “DE-8EO-Aet5e4-3”, “DE8EOAet5e43”
       example: DE*8EO*Aet5e4*3
+    Address:
+      type: object
+      required:
+        - Country
+        - City
+        - Street
+        - PostalCode
+        - HouseNum
+      properties:
+        Country:
+          type: string
+          description: |
+            The CountryCodeType allows for Alpha-3 country codes only as of OICP 2.2 and OICP 2.3
+
+            For Alpha-3 (three-letter) country codes as defined in ISO 3166-1.
+
+            __Examples:__
+
+            | Option | Description |
+            | ------ | ----------- |
+            | AUT | Austria |
+            | DEU | Germany |
+            | FRA | France |
+            | USA | United States |
+          maximum: 3
+          minimum: 3
+        City:
+          type: string
+          maximum: 50
+          minimum: 1
+        Street:
+          type: string
+          maximum: 100
+          minimum: 2
+        PostalCode:
+          type: string
+          maximum: 10
+        HouseNum:
+          type: string
+          maximum: 10
+        Floor:
+          type: string
+          maximum: 5
+        Region:
+          type: string
+          maximum: 50
+        ParkingFacility:
+          type: boolean
+        ParkingSpot:
+          type: string
+          maximum: 5
+        TimeZone:
+          type: string
+          pattern: '[U][T][C][+,-][0-9][0-9][:][0-9][0-9]'
+          description: |
+            `[U][T][C][+,-][0-9][0-9][:][0-9][0-9]`
+            The expression validates a string as a Time zone with UTC offset.
+
+            Examples:
+
+            UTC+01:00
+
+            UTC-05:00
+          example: 'UTC-05:00'
+    GoogleType:
+      type: object
+      description: |
+        Geocoordinates using Google Structure
+        Based on WGS84
+      required:
+        - Coordinates
+      properties:
+        Coordinates:
+          type: string
+          pattern: '^-?1?\d{1,2}\.\d{1,6}\s*\,?\s*-?1?\d{1,2}\.\d{1,6}$'
+          description: |
+            A string that `MUST` be valid with respect to the following regular expression:
+
+            `^-?1?\d{1,2}\.\d{1,6}\s*\,?\s*-?1?\d{1,2}\.\d{1,6}$`
+            The expression validates the string as geo coordinates with respect to the Google standard. The string contains latitude and longitude (in this sequence) separated by a space.
+
+            Example: “47.662249 9.360922”
+          example: 47.662249 9.360922
+    DecimalDegreeType:
+      type: object
+      description: Geocoordinates using DecimalDegree Structure
+      required:
+        - Longitude
+        - Latitude
+      properties:
+        Longitude:
+          type: string
+          pattern: '^-?1?\d{1,2}\.\d{1,6}$'
+          description: |
+            A string that `MUST` be valid with respect to the following regular expression:
+
+            `^-?1?\d{1,2}\.\d{1,6}$`
+            The expression validates the string as a geo coordinate (longitude or latitude) with decimal degree syntax.
+
+            Examples: “9.360922”, “-21.568201”
+          example: '9.360922'
+        Latitude:
+          type: string
+          pattern: '^-?1?\d{1,2}\.\d{1,6}$'
+          description: |
+            A string that `MUST` be valid with respect to the following regular expression:
+
+            `^-?1?\d{1,2}\.\d{1,6}$`
+            The expression validates the string as a geo coordinate (longitude or latitude) with decimal degree syntax.
+
+            Examples: “9.360922”, “-21.568201”
+          example: '9.360922'
+    DegreeMinuteSecondsType:
+      type: object
+      description: Geocoordinates using DegreeMinutesSeconds Structure
+      required:
+        - Longitude
+        - Latitude
+      properties:
+        Longitude:
+          type: string
+          pattern: '^-?1?\d{1,2}°[ ]?\d{1,2}''[ ]?\d{1,2}\.\d+''''$'
+          description: |
+            A string that `MUST` be valid with respect to the following regular expression:
+
+            `^-?1?\d{1,2}°[ ]?\d{1,2}'[ ]?\d{1,2}\.\d+''$`
+            The expression validates the string as a geo coordinate (longitude or latitude) consisting of degree, minutes, and seconds
+
+            Examples: “9°21'39.32''”, “-21°34'23.16''
+          example: 9°21'39.32''
+        Latitude:
+          type: string
+          pattern: '^-?1?\d{1,2}°[ ]?\d{1,2}''[ ]?\d{1,2}\.\d+''''$'
+          description: |
+            A string that `MUST` be valid with respect to the following regular expression:
+
+            `^-?1?\d{1,2}°[ ]?\d{1,2}'[ ]?\d{1,2}\.\d+''$`
+            The expression validates the string as a geo coordinate (longitude or latitude) consisting of degree, minutes, and seconds
+
+            Examples: “9°21'39.32''”, “-21°34'23.16''
+          example: 9°21'39.32''
     GeoCoordinates:
       type: object
       description: |
@@ -1765,82 +1906,11 @@ components:
         __One of the following three options `MUST` be provided__
       properties:
         Google:
-          type: object
-          description: |
-            Geocoordinates using Google Structure
-            Based on WGS84
-          required:
-            - Coordinates
-          properties:
-            Coordinates:
-              type: string
-              pattern: '^-?1?\d{1,2}\.\d{1,6}\s*\,?\s*-?1?\d{1,2}\.\d{1,6}$'
-              description: |
-                A string that `MUST` be valid with respect to the following regular expression:
-
-                `^-?1?\d{1,2}\.\d{1,6}\s*\,?\s*-?1?\d{1,2}\.\d{1,6}$`
-                The expression validates the string as geo coordinates with respect to the Google standard. The string contains latitude and longitude (in this sequence) separated by a space.
-
-                Example: “47.662249 9.360922”
-              example: 47.662249 9.360922
+          $ref: '#/components/schemas/GoogleType'
         DecimalDegree:
-          type: object
-          description: Geocoordinates using DecimalDegree Structure
-          required:
-            - Longitude
-            - Latitude
-          properties:
-            Longitude:
-              type: string
-              pattern: '^-?1?\d{1,2}\.\d{1,6}$'
-              description: |
-                A string that `MUST` be valid with respect to the following regular expression:
-
-                `^-?1?\d{1,2}\.\d{1,6}$`
-                The expression validates the string as a geo coordinate (longitude or latitude) with decimal degree syntax.
-
-                Examples: “9.360922”, “-21.568201”
-              example: '9.360922'
-            Latitude:
-              type: string
-              pattern: '^-?1?\d{1,2}\.\d{1,6}$'
-              description: |
-                A string that `MUST` be valid with respect to the following regular expression:
-
-                `^-?1?\d{1,2}\.\d{1,6}$`
-                The expression validates the string as a geo coordinate (longitude or latitude) with decimal degree syntax.
-
-                Examples: “9.360922”, “-21.568201”
-              example: '9.360922'
+          $ref: '#/components/schemas/DecimalDegreeType'
         DegreeMinuteSeconds:
-          type: object
-          description: Geocoordinates using DegreeMinutesSeconds Structure
-          required:
-            - Longitude
-            - Latitude
-          properties:
-            Longitude:
-              type: string
-              pattern: '^-?1?\d{1,2}°[ ]?\d{1,2}''[ ]?\d{1,2}\.\d+''''$'
-              description: |
-                A string that `MUST` be valid with respect to the following regular expression:
-
-                `^-?1?\d{1,2}°[ ]?\d{1,2}'[ ]?\d{1,2}\.\d+''$`
-                The expression validates the string as a geo coordinate (longitude or latitude) consisting of degree, minutes, and seconds
-
-                Examples: “9°21'39.32''”, “-21°34'23.16''
-              example: 9°21'39.32''
-            Latitude:
-              type: string
-              pattern: '^-?1?\d{1,2}°[ ]?\d{1,2}''[ ]?\d{1,2}\.\d+''''$'
-              description: |
-                A string that `MUST` be valid with respect to the following regular expression:
-
-                `^-?1?\d{1,2}°[ ]?\d{1,2}'[ ]?\d{1,2}\.\d+''$`
-                The expression validates the string as a geo coordinate (longitude or latitude) consisting of degree, minutes, and seconds
-
-                Examples: “9°21'39.32''”, “-21°34'23.16''
-              example: 9°21'39.32''
+          $ref: '#/components/schemas/DegreeMinuteSecondsType'
     PlugAndChargeIdentification:
       type: object
       description: |
@@ -2365,6 +2435,55 @@ components:
               | OutOfService | Charging Spot is out of service and not available for charging. |
               | EvseNotFound | The requested EvseID and EVSE status does not exist within the Hubject database. |
               | Unknown | No status information available. |
+    ChargingFacilitiesType:
+      type: array
+      description: List of facilities that are supported.
+      items:
+        type: object
+        required:
+          - PowerType
+          - Power
+        properties:
+          PowerType:
+            type: string
+            description: Charging Facility power type (e.g. AC or DC)
+            enum:
+              - AC_1_PHASE
+              - AC_3_PHASE
+              - DC
+          Voltage:
+            type: integer
+            maximum: 999
+            minimum: 0
+            description: Voltage (Line to Neutral) of the Charging Facility
+          Amperage:
+            type: integer
+            maximum: 99
+            minimum: 0
+            description: Amperage of the Charging Facility
+          Power:
+            type: integer
+            maximum: 999
+            minimum: 0
+            description: Charging Facility power in kW
+          ChargingModes:
+            type: array
+            items:
+              type: string
+              description: |
+                | Option | Description |
+                | Mode_1 | conductive connection between a standard socket-outlet of an AC supply network and electric vehicle without communication or additional safety features (IEC 61851-1) |
+                | Mode_2 | conductive connection between a standard socket-outlet of an AC supply network and electric vehicle with communication and additional safety features (IEC 61851-1) |
+                | Mode_3 | conductive connection of an EV to an AC EV supply equipment permanently connected to an AC supply network with communication and additional safety features (IEC 61851-1) |
+                | Mode_4 | conductive connection of an EV to an AC or DC supply network utilizing a DC EV supply equipment, with (high-level) communication and additional safety features (IEC 61851-1) |
+                | CHAdeMO | CHAdeMo Specification |
+              enum:
+                - Mode_1
+                - Mode_2
+                - Mode_3
+                - Mode_4
+                - CHAdeMO
+            description: List of charging modes that are supported.
     EvseDataRecord:
       type: object
       required:
@@ -2462,69 +2581,7 @@ components:
           maximum: 100
           description: Name of the Sub Operator owning the Charging Station
         Address:
-          type: object
-          required:
-            - Country
-            - City
-            - Street
-            - PostalCode
-            - HouseNum
-          properties:
-            Country:
-              type: string
-              description: |
-                The CountryCodeType allows for Alpha-3 country codes only as of OICP 2.2 and OICP 2.3
-
-                For Alpha-3 (three-letter) country codes as defined in ISO 3166-1.
-
-                __Examples:__
-
-                | Option | Description |
-                | ------ | ----------- |
-                | AUT | Austria |
-                | DEU | Germany |
-                | FRA | France |
-                | USA | United States |
-              maximum: 3
-              minimum: 3
-            City:
-              type: string
-              maximum: 50
-              minimum: 1
-            Street:
-              type: string
-              maximum: 100
-              minimum: 2
-            PostalCode:
-              type: string
-              maximum: 10
-            HouseNum:
-              type: string
-              maximum: 10
-            Floor:
-              type: string
-              maximum: 5
-            Region:
-              type: string
-              maximum: 50
-            ParkingFacility:
-              type: boolean
-            ParkingSpot:
-              type: string
-              maximum: 5
-            TimeZone:
-              type: string
-              pattern: '[U][T][C][+,-][0-9][0-9][:][0-9][0-9]'
-              description: |
-                `[U][T][C][+,-][0-9][0-9][:][0-9][0-9]`
-                The expression validates a string as a Time zone with UTC offset.
-
-                Examples:
-
-                UTC+01:00
-
-                UTC-05:00
-              example: 'UTC-05:00'
+          $ref: '#/components/schemas/Address'
         GeoCoordinates:
           $ref: '#/components/schemas/GeoCoordinates'
         Plugs:
@@ -2576,54 +2633,7 @@ components:
           type: boolean
           description: Informs is able to deliver different power outputs.
         ChargingFacilities:
-          type: array
-          description: List of facilities that are supported.
-          items:
-            type: object
-            required:
-              - PowerType
-              - Power
-            properties:
-              PowerType:
-                type: string
-                description: Charging Facility power type (e.g. AC or DC)
-                enum:
-                  - AC_1_PHASE
-                  - AC_3_PHASE
-                  - DC
-              Voltage:
-                type: integer
-                maximum: 999
-                minimum: 0
-                description: Voltage (Line to Neutral) of the Charging Facility
-              Amperage:
-                type: integer
-                maximum: 99
-                minimum: 0
-                description: Amperage of the Charging Facility
-              Power:
-                type: integer
-                maximum: 999
-                minimum: 0
-                description: Charging Facility power in kW
-              ChargingModes:
-                type: array
-                items:
-                  type: string
-                  description: |
-                    | Option | Description |
-                    | Mode_1 | conductive connection between a standard socket-outlet of an AC supply network and electric vehicle without communication or additional safety features (IEC 61851-1) |
-                    | Mode_2 | conductive connection between a standard socket-outlet of an AC supply network and electric vehicle with communication and additional safety features (IEC 61851-1) |
-                    | Mode_3 | conductive connection of an EV to an AC EV supply equipment permanently connected to an AC supply network with communication and additional safety features (IEC 61851-1) |
-                    | Mode_4 | conductive connection of an EV to an AC or DC supply network utilizing a DC EV supply equipment, with (high-level) communication and additional safety features (IEC 61851-1) |
-                    | CHAdeMO | CHAdeMo Specification |
-                  enum:
-                    - Mode_1
-                    - Mode_2
-                    - Mode_3
-                    - Mode_4
-                    - CHAdeMO
-                description: List of charging modes that are supported.
+          $ref: '#/components/schemas/ChargingFacilitiesType'
         RenewableEnergy:
           type: boolean
           description: |
