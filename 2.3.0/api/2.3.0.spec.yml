@@ -1561,23 +1561,7 @@ components:
             - delete
           description: Describes the action that has to be performed by Hubject with the provided data.
         OperatorEvseData:
-          type: object
-          required:
-            - OperatorID
-            - OperatorName
-            - EvseDataRecord
-          properties:
-            OperatorID:
-              $ref: '#/components/schemas/OperatorIDType'
-            OperatorName:
-              type: string
-              maximum: 100
-              description: Free text for operator
-            EvseDataRecord:
-              type: array
-              description: EVSE entries
-              items:
-                $ref: '#/components/schemas/EvseDataRecord'
+          $ref: '#/components/schemas/OperatorEvseDataType'
       example:
         ActionType: fullLoad
         OperatorEvseData:
@@ -2102,6 +2086,24 @@ components:
 
         Examples DIN: “DE8EO”, “DE*8EO”, “DE-8EO”
       example: DE-8EO
+    OperatorEvseDataType:
+      type: object
+      required:
+        - OperatorID
+        - OperatorName
+        - EvseDataRecord
+      properties:
+        OperatorID:
+          $ref: '#/components/schemas/OperatorIDType'
+        OperatorName:
+          type: string
+          maximum: 100
+          description: Free text for operator
+        EvseDataRecord:
+          type: array
+          description: EVSE entries
+          items:
+            $ref: '#/components/schemas/EvseDataRecord'
     OperatorIDType:
       type: string
       pattern: '^(([A-Za-z]{2}\*?[A-Za-z0-9]{3})|(\+?[0-9]{1,3}\*[0-9]{3}))$'
